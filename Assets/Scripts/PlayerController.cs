@@ -4,7 +4,8 @@ public class PlayerController : Character
 {
     [SerializeField] private float speed = 5f, jumpPow = 10f, gravity = -10f;
 
-    [SerializeField] private Transform respawnPoint;
+    //[SerializeField] private Transform respawnPoint;
+    [SerializeField] private GameObject bubblePrefab;
 
     private CharacterController charCon;
     private Vector3 playerVel;
@@ -31,6 +32,16 @@ public class PlayerController : Character
             playerVel.y = 0f;
         }
 
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Instantiate(bubblePrefab, transform.position, transform.rotation);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Respawn();
+        }
+
         if (Input.GetAxis("Jump") == 1 && isGrounded)
         {
             playerVel.y += Mathf.Sqrt(jumpPow * -3.0f * gravity);
@@ -45,8 +56,7 @@ public class PlayerController : Character
 
     public void Respawn()
     {
-        transform.position = respawnPoint.position;
-        transform.rotation = respawnPoint.rotation;
+        SceneManager.Instance.ReloadScene();
     }
 
     protected override void TakeDamage(float damage)

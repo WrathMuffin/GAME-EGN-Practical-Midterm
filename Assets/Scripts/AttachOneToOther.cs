@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public class Enemy : Character
+public class AttachOneToOther : MonoBehaviour
 {
+    public GameObject mainObj, secondObj;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -11,14 +14,6 @@ public class Enemy : Character
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Bubble"))
-        {
-            Die();
-        }
+        secondObj.transform.position = mainObj.transform.position;
     }
 }
